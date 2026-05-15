@@ -34,7 +34,8 @@ bioanalyzer/
 │       ├─ read_csv()
 │       └─ read_impedance()
 │
-├─ tests/                         # Tests automatizados
+├─ tests/
+|   ├─ test_ayllon_modificado.py  # Tests automatizados
 │   ├─ test_ayllon.py
 │   ├─ test_tres_puntos.py
 │   ├─ test_lm.py
