@@ -1,7 +1,8 @@
+```text
 ════════════════════════════════════════════════════════════════
               ESTRUCTURA DE bioanalyzer (librería)
 ════════════════════════════════════════════════════════════════
-```text
+
 bioanalyzer/
 │
 ├─ __init__.py                    # Punto de entrada
@@ -56,7 +57,6 @@ bioanalyzer/
 ├─ requirements.txt               # Dependencias
 └─ README.md                      # Documentación principal
 
-``
 ════════════════════════════════════════════════════════════════
                         USO TÍPICO
 ════════════════════════════════════════════════════════════════
@@ -83,3 +83,5 @@ print(f"Rinf = {params['Rinf']:.2f} Ω")
 print(f"R0 = {params['R0']:.2f} Ω")
 print(f"tau = {params['tau']:.2e} s")
 print(f"alpha = {params['alpha']:.3f}")
+
+```
