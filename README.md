@@ -1,7 +1,7 @@
 ════════════════════════════════════════════════════════════════
               ESTRUCTURA DE bioanalyzer (librería)
 ════════════════════════════════════════════════════════════════
-
+```text
 bioanalyzer/
 │
 ├─ __init__.py                    # Punto de entrada
@@ -56,7 +56,7 @@ bioanalyzer/
 ├─ requirements.txt               # Dependencias
 └─ README.md                      # Documentación principal
 
-
+``
 ════════════════════════════════════════════════════════════════
                         USO TÍPICO
 ════════════════════════════════════════════════════════════════
