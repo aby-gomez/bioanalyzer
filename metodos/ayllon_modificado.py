@@ -21,12 +21,37 @@ def metodo_ayllon_modificado(matriz: np.ndarray, a: int, c: int) -> np.ndarray:
     --------
     array : [Rinf, R0, tau, alpha, x0, y0, radio]
     """
+
+    # 1. VALIDACIÓN DE TIPOS (Defensa contra tipos incorrectos)
+    if not isinstance(matriz, np.ndarray):
+        raise TypeError("El parámetro 'matriz' debe ser un arreglo de NumPy (np.ndarray).")
+    
+    if not isinstance(a, int) or not isinstance(c, int):
+        raise TypeError("Los parámetros 'a' y 'c' deben ser números enteros.")
+
+    # 2. VALIDACIÓN DE ESTRUCTURA (Defensa contra dimensiones incorrectas)
+    #Si no es una matriz bidimensional (si es 1 es un arreglo si es 3 es un cubo) O si tiene menos de 3 columnas lanza error
+    if matriz.ndim != 2 or matriz.shape[1] < 3:
+        raise ValueError(
+            f"La matriz de entrada debe tener 2 dimensiones y al menos 3 columnas. "
+            f"Dimensiones provistas: {matriz.shape}"
+        )
+
+    # 3. VALIDACIÓN DE VALORES/BANDERAS (Defensa contra configuraciones inválidas)
+    if a not in (0, 1):
+        raise ValueError(f"El parámetro 'a' debe ser 0 o 1. Valor recibido: {a}")
+        
+    if c not in (0, 1):
+        raise ValueError(f"El parámetro 'c' debe ser 0 o 1. Valor recibido: {c}")
+    
+    #Inicio programa
+
     
     # 1. Convertir a rectangular(cartesiana)
     if a == 0: 
         X = matriz[:, 1]
         Y = matriz[:, 2]
-    elif a == 1: 
+    else: 
         X = matriz[:, 1] * np.cos(np.radians(matriz[:, 2]))
         Y = matriz[:, 1] * np.sin(np.radians(matriz[:, 2]))
     
