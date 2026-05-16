@@ -47,4 +47,5 @@ Thumbs.db
 # Datos personales (Excel con los datos)
 *.xlsx
 *.xls
-datos/
+datos_prueba/
+scripts/
