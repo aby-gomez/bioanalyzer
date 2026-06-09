@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-def graficar_resultados(datos, resultado, parametro_c):
+def graficar_resultados(metodo,datos, resultado, parametro_c):
     """
     Genera automáticamente los 4 gráficos de Cole-Cole a partir de cualquier
     matriz de entrada y sus parámetros calculados.
@@ -29,7 +29,7 @@ def graficar_resultados(datos, resultado, parametro_c):
 
     # Construcción de la figura
     fig, axs = plt.subplots(2, 2, figsize=(12, 10))
-    fig.suptitle("Análisis de Bioimpedancia - Ajuste de Curvas", fontsize=14, fontweight='bold')
+    fig.suptitle("Análisis de Bioimpedancia - Ajuste de Curvas "+metodo, fontsize=14, fontweight='bold')
 
     # Subplot 1: Nyquist
     axs[0, 0].plot(X, -Y, '*r', label='Datos Experimentales')
