@@ -51,4 +51,4 @@ def TodosLosPuntos(datos: np.ndarray):
 
     Rinf, R0, tau, alpha = ParametersDV(best_circumference, datos)
 
-    return Rinf, R0, tau, alpha, best_circumference
+    return Rinf, R0, tau, alpha, best_circumference,best_error
