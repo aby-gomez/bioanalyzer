@@ -6,7 +6,28 @@ def graficar_resultados(metodo,datos, resultado, parametro_c):
     """
     Genera automáticamente los 4 gráficos de Cole-Cole a partir de cualquier
     matriz de entrada y sus parámetros calculados.
+
+    
+    
+    Parámetros:
+    -----------
+    metodo : str
+        Nombre del método de ajuste ejecutado (ej. 'Levenberg-Marquardt')
+    datos : numpy array (Nx3)
+        Columna 1: frecuencia
+        Columna 2: parte real
+        Columna 3: parte imaginaria
+    resultado : list o numpy array
+        Vector con los parámetros calculados [Rinf, R0, tau, alpha, ...]
+    parametro_c : int
+        0 = frecuencia en rad/s
+        1 = frecuencia en Hz
+    
+    Retorna:
+    --------
+    None : Muestra en pantalla el lienzo de 4 subplots (Nyquist, |Z|, Real e Imaginaria)
     """
+
     # Desempaquetar resultados del método
     Rinf  = resultado[0]
     Rcero = resultado[1]
