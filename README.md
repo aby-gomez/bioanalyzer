@@ -1,3 +1,56 @@
+# Guía de Uso e Instalación: Análisis de Bioimpedancia (Modelo Cole-Cole)
+
+Este proyecto permite procesar archivos de mediciones de bioimpedancia (procedentes de equipos Solartron) para ajustar los datos experimentales al **Modelo Teórico de Cole-Cole** mediante 4 métodos algorítmicos. Incluye un menú interactivo en consola y herramientas para la visualización de datos en el plano complejo (Nyquist) y esquemas de Bode (Módulo, Parte Real, Parte Imaginaria y Fase).
+
+---
+
+## Prerrequisitos e Instalación Inicial
+
+Si nunca has programado o no tienes herramientas de desarrollo instaladas en tu computadora, sigue estos pasos:
+
+### 1. Descargar e instalar Python
+Python es el lenguaje en el que está escrito este programa.
+
+1. Ve al sitio oficial: [python.org/downloads](https://www.python.org/downloads/).
+2. Descarga la versión más reciente para tu sistema operativo (Windows, macOS o Linux).
+3. **Paso Crítico en Windows:** Al iniciar el instalador, **asegúrate de marcar la casilla** que dice:
+   > `☑ Add python.exe to PATH` (o "Agregar Python al PATH").
+4. Haz clic en **Install Now** y completa la instalación.
+
+---
+
+### 2. Descargar e instalar Visual Studio Code (VS Code)
+VS Code es el editor de texto y entorno donde podrás ver el código y ejecutar el programa de manera sencilla.
+
+1. Ve a [code.visualstudio.com](https://code.visualstudio.com/).
+2. Descarga e instala la versión correspondiente a tu sistema operativo.
+3. Abre VS Code.
+4. En el menú de la izquierda, haz clic en el ícono de **Extensiones** (cuatro cubos) o presiona `Ctrl + Shift + X` (`Cmd + Shift + X` en macOS).
+5. En la barra de búsqueda escribe `Python` e instala la extensión oficial de **Microsoft**.
+
+---
+
+### 3. Preparar la carpeta del proyecto
+
+1. Descarga o descomprime la carpeta de este proyecto en tu computadora (por ejemplo, en el Escritorio).
+2. Abre **VS Code**.
+3. Ve al menú superior: `Archivo` -> `Abrir carpeta...` (o `File` -> `Open Folder...`).
+4. Selecciona la carpeta raíz del proyecto.
+
+---
+
+### 4. Instalar las librerías necesarias
+
+El programa requiere módulos externos de Python para procesar datos numéricos, leer archivos Excel y generar las gráficas.
+
+1. En VS Code, abre la terminal en el menú superior: `Terminal` -> `Nueva Terminal`.
+2. Copia el siguiente comando, pégalo en la ventana inferior de la terminal y presiona `Enter`:
+
+```bash
+pip install requirements.txt
+
+
+
 ```text
 ════════════════════════════════════════════════════════════════
               ESTRUCTURA DE bioanalyzer (librería)
@@ -58,31 +111,6 @@ bioanalyzer/
 ├─ requirements.txt               # Dependencias
 └─ README.md                      # Documentación principal
 
-════════════════════════════════════════════════════════════════
-                        USO TÍPICO
-════════════════════════════════════════════════════════════════
 
-# Instalación
-pip install bioanalyzer
-
-# Uso básico
-import bioanalyzer as ba
-import pandas as pd
-
-# Leer datos
-datos = ba.read_solartron('experimento.z')
-
-# Aplicar método
-params = ba.metodo_ayllon_modificado(
-    freq=datos['frecuencia'],
-    real=datos['real'],
-    imag=datos['imag']
-)
-
-# Ver resultados
-print(f"Rinf = {params['Rinf']:.2f} Ω")
-print(f"R0 = {params['R0']:.2f} Ω")
-print(f"tau = {params['tau']:.2e} s")
-print(f"alpha = {params['alpha']:.3f}")
 
 ```
