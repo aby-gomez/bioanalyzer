@@ -30,7 +30,10 @@ def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
     frecuencias = datos[:, 0]
     X_exp = datos[:, 1]
     Y_exp = datos[:, 2]
-    fase_exp    = datos[:, 4]
+    # Convertir la fase experimental (que viene en grados) a radianes
+    fase_exp    = np.radians(datos[:, 4])
+    # Sumar 2pi a los valores negativos para pasarlos hacia arriba (cuadrantes I y II)
+    fase_exp_pos = 2 * np.pi + fase_exp
     # Calcular frecuencias angulares (w) igual que en graficar_resultados
     w = frecuencias * (2 * np.pi) if c == 1 else frecuencias
     j = 1j
@@ -52,7 +55,7 @@ def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
     axs[0, 1].semilogx(w, np.sqrt(X_exp**2 + Y_exp**2), '*r')          # |Z| vs w
     axs[0, 2].semilogx(w, X_exp, '*r')                                 # 3. Real vs w
     axs[1, 0].semilogx(w, -Y_exp, '*r')                                 # Real vs w
-    axs[1, 1].semilogx(w, fase_exp, '*r')                                # -Imag vs w
+    axs[1, 1].semilogx(w, fase_exp_pos, '*r')                                # -Imag vs w
 
     zbest_export = {}
 
@@ -68,10 +71,12 @@ def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
         EstY = Z_est.imag
         mod_Zest = np.abs(Z_est)
         fase_est_rad = np.arctan2(EstY, EstX)
+        # Sumar 2pi al ángulo estimado para proyectarlo hacia arriba
+        fase_est_pos = 2 * np.pi + fase_est_rad
         fase_est = np.degrees(fase_est_rad) 
 
         # Guardar datos simulados para el retorno
-        zbest_export[nombre_metodo] = np.vstack([frecuencias, EstX, EstY, mod_Zest, fase_est]).T
+        zbest_export[nombre_metodo] = np.vstack([frecuencias, EstX, EstY, mod_Zest, fase_est_pos]).T
 
         # Obtener formato de color asignado
         fmt = colores.get(nombre_metodo, 'k-')
@@ -81,7 +86,7 @@ def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
         axs[0, 1].semilogx(w, mod_Zest, fmt)
         axs[0, 2].semilogx(w, EstX, fmt)
         axs[1, 0].semilogx(w, -EstY, fmt)
-        axs[1, 1].semilogx(w, fase_est, fmt)
+        axs[1, 1].semilogx(w, fase_est_pos, fmt)
 
     # 3. Formateo, Etiquetas y Estética de los Subplots (Uso de semilogx)
     # Subplot [0, 0]: Nyquist
@@ -111,7 +116,7 @@ def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
     axs[1, 0].grid(True, which="both")
 
     # Subplot 5: Fase vs w
-    unidad_fase = '(°)' 
+    unidad_fase = '(rad)' 
     axs[1, 1].set_title('Fase vs $\omega$')
     axs[1, 1].set_xlabel('$\omega$ (rad/s)')
     axs[1, 1].set_ylabel(f'Fase {unidad_fase}')
