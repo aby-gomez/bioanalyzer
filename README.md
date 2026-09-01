@@ -84,7 +84,31 @@ El programa ofrece 4 metodos diferentes para realizar este ajuste y genera grafi
 4. Selecciona la carpeta `bioanalyzer`
 5. Abre la terminal: `Terminal` > `New Terminal` (o presiona `` Ctrl + ` ``)
 
-### Paso 5: Instalar las librerias necesarias
+### Paso 5: Crear el entorno virtual
+
+Ejecutar: 
+
+```
+python -m venv venv
+```
+
+
+Verificar si la terminal es Powershell o CMD 
+
+Si es Powershell ejecutar: 
+
+```
+.\venv\Scripts\Activate.ps1
+```
+
+Si es CMD :
+
+```
+venv\Scripts\activate.bat
+```
+
+
+### Paso 6: Instalar las librerias necesarias
 
 En la terminal que abriste, escribe y presiona Enter:
 
