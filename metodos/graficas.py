@@ -54,7 +54,7 @@ def graficar_resultados(metodo,datos, resultado, parametro_c):
 
     # Subplot 1: Nyquist
     axs[0, 0].plot(X, -Y, '*r', label='Datos Experimentales')
-    axs[0, 0].plot(EstX, -EstY, 'g-', label='Estimación Ayllon')
+    axs[0, 0].plot(EstX, -EstY, 'g-', label=f'Estimación {metodo}')
     axs[0, 0].set_xlabel('R ($\Omega$)')
     axs[0, 0].set_ylabel('-X ($\Omega$)')
     axs[0, 0].set_title('Modelo Cole-Cole (Plano Complejo)')

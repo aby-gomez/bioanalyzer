@@ -25,7 +25,15 @@ def LMMethod(datos: np.ndarray) -> np.ndarray:
     # 2. Suposición inicial [Radio, CentroX, CentroY]
     # Ajustamos la semilla original [2500, 3000, 10] a valores más lógicos 
     # basados en la escala real de los datos experimentales (aprox. 150, 200, 10)
-    beta_in = [150.0, 200.0, 10.0]
+
+    #calcular radio,centrox , centroy 
+    centroX =min(x_data)+((1/2)*(max(x_data)-min(x_data)))
+    centroY = 0
+    radio = max(y_data) 
+
+    print(f"centro X {centroX}, centroY{centroY}, radio {radio}")
+
+    beta_in = [radio,centroX,centroY]
     
     try:
         # 3. Ajuste por mínimos cuadrados no lineales (Levenberg-Marquardt)

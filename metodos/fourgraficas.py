@@ -92,32 +92,32 @@ def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
     # Subplot [0, 0]: Nyquist
     axs[0, 0].set_xlabel('R ($\Omega$)')
     axs[0, 0].set_ylabel('-X ($\Omega$)')
-    axs[0, 0].set_title('Modelo Cole-Cole (Plano Complejo)')
+    axs[0, 0].set_title('Modelo Cole-Cole')
     axs[0, 0].grid(True)
    
 
     # Subplot [0, 1]: Módulo Z
     axs[0, 1].set_xlabel('$\omega$ (rad/s)')
     axs[0, 1].set_ylabel('|Z| ($\Omega$)')
-    axs[0, 1].set_title('|Z| vs Frecuencia Angular ($\omega$)')
+    axs[0, 1].set_title('|Z| ($\omega$)')
     axs[0, 1].grid(True, which="both")
 
     # Subplot [0, 2]: Parte Real 
     axs[0, 2].set_xlabel('$\omega$ (rad/s)')
     axs[0, 2].set_ylabel('Real(Z) ($\Omega$)')
-    axs[0, 2].set_title('Parte Real vs $\omega$')
+    axs[0, 2].set_title('R ($\omega$)')
     axs[0, 2].grid(True, which="both")
 
 
     # Subplot [1, 0]: Componente Imaginaria
     axs[1, 0].set_xlabel('$\omega$ (rad/s)')
     axs[1, 0].set_ylabel('-Imag(Z) ($\Omega$)')
-    axs[1, 0].set_title('Parte Imaginaria vs $\omega$')
+    axs[1, 0].set_title('-X ($\omega$)')
     axs[1, 0].grid(True, which="both")
 
     # Subplot 5: Fase vs w
     unidad_fase = '(rad)' 
-    axs[1, 1].set_title('Fase vs $\omega$')
+    axs[1, 1].set_title(r"${\Theta}$"' ($\omega$)')
     axs[1, 1].set_xlabel('$\omega$ (rad/s)')
     axs[1, 1].set_ylabel(f'Fase {unidad_fase}')
     axs[1, 1].grid(True, which="both")
