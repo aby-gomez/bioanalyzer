@@ -205,12 +205,12 @@ Despues abre VS Code, instala la extension de Python igual que en Windows.
 
    **Windows:**
    ```
-   python scripts\main.py
+   python -m scripts.main
    ```
 
    **Linux (con entorno virtual activado):**
    ```
-   python scripts/main.py
+   python3 -m scripts.main
    ```
 
 ### Opcion 2: Desde la terminal del sistema (sin VS Code)
