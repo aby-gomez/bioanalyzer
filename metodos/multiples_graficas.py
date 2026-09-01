@@ -29,7 +29,6 @@ def comparar_sets_de_datos(dict_datasets: dict, c: int = 1):
     for idx_set, (nombre_set, contenido) in enumerate(dict_datasets.items()):
         datos = contenido['datos']
         resultados_metodos = contenido['metodos']
-0
 
         frecuencias = datos[:, 0]
         X_exp = datos[:, 1]
