@@ -35,7 +35,7 @@ def cargar_datos_excel(ruta_custom=None):
         ruta_saneada = ruta_defecto
 
     # Normalización de ruta compatible con OS (Windows/Linux)
-    path_obj = Path(ruta_saneada)
+    path_obj = Path(ruta_saneada).resolve()
 
     # Muestra la representación interna exacta (detecta caracteres invisibles o escapes)
     print(f"[DEBUG] Cadena limpia: {repr(ruta_saneada)}")
@@ -45,6 +45,10 @@ def cargar_datos_excel(ruta_custom=None):
     # Si la carpeta existe, lista los archivos reales que hay adentro para comparar el nombre exacto
     if path_obj.parent.exists():
         print(f"[DEBUG] Archivos en la carpeta: {[f.name for f in path_obj.parent.iterdir()]}")
+
+    # Si no tiene extensión o no existe, intentar agregar .xlsx automáticamente
+    if not path_obj.exists() and path_obj.suffix != '.xlsx':
+        path_obj = path_obj.with_suffix('.xlsx')
     if not path_obj.exists():
         print(f"[ERROR] El archivo '{path_obj}' no existe.")
         return None
