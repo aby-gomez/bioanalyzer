@@ -43,7 +43,7 @@ def cargar_datos_excel(ruta_custom=None):
 
 
     try:
-        df = pd.read_excel(ruta)
+        df = pd.read_excel(path_obj)
         # Adaptación de columnas en caso de nombres en mayúsculas o minúsculas
         cols = [c.lower() for c in df.columns]
         df.columns = cols
