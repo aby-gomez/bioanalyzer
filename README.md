@@ -1,6 +1,6 @@
 # Bioanalyzer - Guia de Instalacion y Uso
 
-Sistema de analisis de bioimpedancia que ajusta datos experimentales al **Modelo Teorico de Cole-Cole** mediante 4 metodos algoritmicos.
+Sistema de analisis de bioimpedancia que ajusta datos experimentales al **Modelo de Cole** mediante 4 métodos de aproximacion.
 
 Incluye un menu interactivo en consola y herramientas de visualizacion grafica (Nyquist, Bode).
 
@@ -24,12 +24,12 @@ Incluye un menu interactivo en consola y herramientas de visualizacion grafica (
 
 ## Que hace este programa
 
-Este programa recibe archivos Excel con mediciones de bioimpedancia (provenientes de equipos Solartron) y ajusta esos datos a una circunferencia en el plano complejo para obtener los **4 parametros fisicos del modelo Cole-Cole**:
+Este programa recibe archivos en formato Excel con mediciones de bioimpedancia y ajusta esos datos al Modelo de Cole para obtener los **4 parámetros que caracterizan al sistema**:
 
-- **Rinf**: Resistencia a frecuencia infinita
-- **R0**: Resistencia a frecuencia cero
+- **Rinf**: Resistencia a frecuencias altas
+- **R0**: Resistencia a frecuencias bajas
 - **tau**: Constante de tiempo caracteristica
-- **alpha**: Exponente de distribucion
+- **alpha**: Exponente admiensional
 
 El programa ofrece 4 metodos diferentes para realizar este ajuste y genera graficas comparativas.
 
@@ -64,7 +64,7 @@ El programa ofrece 4 metodos diferentes para realizar este ajuste y genera grafi
    ```
    python --version
    ```
-4. Deberia aparecer algo como: `Python 3.12.x`
+4. Debería aparecer algo como: `Python 3.12.x`
 
 ### Paso 3: Descargar e instalar VS Code (opcional pero recomendado)
 
@@ -72,17 +72,101 @@ El programa ofrece 4 metodos diferentes para realizar este ajuste y genera grafi
 2. Haz clic en **"Download for Windows"**
 3. Ejecuta el instalador con las opciones por defecto
 4. Abre VS Code
-5. Presiona `Ctrl + Shift + X` para abrir Extensiones
+5. En el menu lateral izquierda presiona el ìcono de Extensiones
 6. Escribe `Python` en la busqueda
-7. Instala la extension **"Python"** de Microsoft (la primera que aparece)
+7. Instala la extensión **"Python"** de Microsoft (la primera que aparece)
 
 ### Paso 4: Abrir el proyecto
 
-1. Descarga el proyecto en Github haciendo click en el boton verde 'Code' y luego 'Download as Zip' luego copia la carpeta `bioanalyzer` en una ubicacion facil de recordar (por ejemplo, tu Escritorio)
-2. Abre VS Code
-3. Ve a `File` > `Open Folder...`
-4. Selecciona la carpeta `bioanalyzer`
-5. Abre la terminal: `Terminal` > `New Terminal` (o presiona `` Ctrl + ` ``)
+Para obtener una copia local del proyecto y mantener la sincronización con el repositorio remoto, podés clonarlo utilizando **HTTPS** o **SSH**. 
+
+> **Nota:** Se recomienda clonar el repositorio en lugar de descargar el archivo ZIP para conservar el historial de versiones y facilitar futuras actualizaciones con `git pull`.
+
+---
+
+### Opción 1: Clonar vía HTTPS
+
+Es la forma más rápida de comenzar y no requiere configurar claves previamente.
+
+```bash
+git clone [https://github.com/usuario/nombre-del-repositorio.git](https://github.com/usuario/nombre-del-repositorio.git)
+cd nombre-del-repositorio
+```
+
+#### Configuración inicial de usuario (Mail y Nombre)
+Antes de realizar commits o interactuar con el repositorio, debés configurar tu identidad en Git:
+
+```bash
+# Configurar tu nombre de usuario
+git config --global user.name "Tu Nombre"
+
+# Configurar tu correo electrónico (debe coincidir con el de GitHub)
+git config --global user.email "tu_email@ejemplo.com"
+
+# Guardar credenciales en el sistema
+git config --global credential.helper store
+```
+
+####  Posibles problemas con HTTPS
+* **Error de autenticación (`Personal Access Token` requerido):** GitHub no permite usar la contraseña tradicional de la cuenta al realizar operaciones por consola (`git push`). Se debe generar un **Personal Access Token (PAT)** desde *Settings > Developer Settings > Personal Access Tokens* y usarlo como contraseña.
+* **Solicitud constante de credenciales:** Si no tenés activado `credential.helper`, Git te pedirá usuario y Token en cada interacción remota.
+
+---
+
+### Opción 2: Clonar vía SSH
+
+Permite trabajar de forma segura sin ingresar credenciales o Tokens en cada comando.
+
+```bash
+git clone git@github.com:usuario/nombre-del-repositorio.git
+cd nombre-del-repositorio
+```
+
+#### Configuración paso a paso de la clave SSH
+Si es la primera vez que usás SSH en tu equipo, debés generar un par de claves e integrar la clave pública en tu cuenta de GitHub:
+
+1. **Generar el par de claves en tu consola:**
+   ```bash
+   ssh-keygen -t ed25519 -C "tu_email@ejemplo.com"
+   ```
+   *(Presioná `Enter` a todo para aceptar la ubicación predeterminada y dejar la contraseña en blanco).*
+
+2. **Iniciar el agente SSH y agregar la clave privada:**
+   * **Linux/macOS:**
+     ```bash
+     eval "$(ssh-agent -s)"
+     ssh-add ~/.ssh/id_ed25519
+     ```
+   * **Windows (PowerShell como Administrador):**
+     ```powershell
+     Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
+     Start-Service ssh-agent
+     ssh-add $env:USERPROFILE\.ssh\id_ed25519
+     ```
+
+3. **Copiar la clave pública y agregarla a GitHub:**
+   * Mostrá tu clave en pantalla y copiala por completo:
+     ```bash
+     cat ~/.ssh/id_ed25519.pub
+     ```
+   * Andá a GitHub: **Settings > SSH and GPG keys > New SSH key**.
+   * Pegá el contenido copiado y guardá los cambios
+
+#### ⚠️ Posibles problemas con SSH
+* **Error `Permission denied (publickey)`:** Ocurre si la clave pública no fue agregada correctamente en GitHub o si el agente SSH local no tiene cargada la clave privada (`ssh-add`).
+* **Bloqueo por Firewall de red:** Redes académicas o corporativas suelen bloquear el puerto `22` (SSH). Si la conexión se queda colgada, podés configurar SSH para operar sobre el puerto `443` editando el archivo `~/.ssh/config`:
+  ```text
+  Host github.com
+      Hostname ssh.github.com
+      Port 443
+      User git
+  ```
+
+Luego de haber clonado el repositorio : 
+  1. Abre VS Code
+  2. Ve a `File` > `Open Folder...`
+  3. Selecciona la carpeta `bioanalyzer`
+  4. Abre la terminal: `Terminal` > `New Terminal`
 
 ### Paso 5: Crear el entorno virtual
 
@@ -279,7 +363,7 @@ Seleccione un metodo:
 
 ### Navegacion
 
-- Escribe el **número** de la opciún que deseas y presiona Enter
+- Escribe el **número** de la opción que deseas y presiona Enter
 - Despues de ejecutar un método, se mostrarán los 7 parámetros en pantalla
 - Se abrirá automáticamente una ventana con las gráficas
 - Se te preguntara si deseas generar la grafica comparativa
@@ -322,15 +406,15 @@ Si quieres usar tu propio archivo de datos:
   3. Resuelve un sistema lineal para encontrar el centro y radio de la circunferencia
   4. Calcula tau mediante regresion polinomial
 - **Ventaja:** Metodologia probada, basada en publicaciones cientificas
-- **Desventaja:** Requiere que los datos esten bien distribuidos
+- **Desventaja:** El cálculo del parámetro tau presenta diferencias con la  implementación en MatLAb.
+
 
 ### 3. Ayllon Modificado
 
 - **Archivo:** `metodos/ayllon_modificado.py`
 - **Funcion:** `metodo_ayllon_modificado(matriz, a, c)`
 - **Como funciona:** Variante simplificada del metodo original
-  1. Usa promedios simples en lugar de sumatorias
-  2. Para calcular tau, toma directamente la frecuencia en el punto de minimo de la parte imaginaria
+   Para calcular tau, toma directamente la frecuencia en el punto de minimo de la parte imaginaria
 - **Ventaja:** Mas rapido y simple que el original
 - **Desventaja:** Menos preciso en algunos casos
 
@@ -343,7 +427,8 @@ Si quieres usar tu propio archivo de datos:
   2. Emplea el algoritmo Levenberg-Marquardt (via `scipy.optimize.curve_fit`)
   3. Requiere semillas iniciales (valores aproximados para guiar la busqueda)
 - **Ventaja:** Rapido y preciso cuando las semillas son buenas
-- **Desventaja:** Puede no converger si los datos son problematicos
+- **Desventaja:** Puede no converger si los datos no se encuentran distribuidos de manera uniforme.
+
 
 ### Comparativa entre metodos
 
@@ -358,28 +443,28 @@ Si quieres usar tu propio archivo de datos:
 
 ## Parametros Cole-Cole
 
-El modelo Cole-Cole describe la impedancia electrica de un material biologico:
+El modelo Cole-Cole describe la impedancia electrica de un sistema biologico:
 
 ```
 Z(w) = Rinf + (R0 - Rinf) / (1 + (j*w*tau)^alpha)
 ```
 
 Donde:
-- **Z(w)**: Impedancia compleja a frecuencia angular w
-- **Rinf**: Resistencia a frecuencia infinita (ohms)
-- **R0**: Resistencia a frecuencia cero (ohms)
+- **Z(w)**: Impedancia compleja en función de la frecuencia angular w
+- **Rinf**: Resistencia en frecuencias altas (ohms)
+- **R0**: Resistencia a frecuencias bajas (ohms)
 - **tau**: Constante de tiempo caracteristica (segundos)
-- **alpha**: Exponente de distribucion (0 < alpha <= 1)
+- **alpha**: Exponente admiensional (0 < alpha <= 1)
 - **w**: Frecuencia angular (2 * pi * f, en rad/s)
 - **j**: Unidad imaginaria (sqrt(-1))
 
 Los 7 valores que muestra el programa son:
-1. **Rinf** - Resistencia minima (alta frecuencia)
-2. **R0** - Resistencia maxima (baja frecuencia)
+1. **Rinf** - Resistencia (alta frecuencia)
+2. **R0** - Resistencia (baja frecuencia)
 3. **tau** - Tiempo de relajacion caracteristico
 4. **alpha** - Indica que tan "estirado" esta el arco de Nyquist
-5. **x0** - Coordenada X del centro de la circunferencia
-6. **y0** - Coordenada Y del centro de la circunferencia
+5. **x0** - Coordenada X del centro de la  circunferencia que ajusta los datos
+6. **y0** - Coordenada Y del centro de la circunferencia que ajusta los datos
 7. **radio** - Radio de la circunferencia ajustada
 
 ---
