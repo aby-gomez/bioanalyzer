@@ -14,6 +14,7 @@ from metodos.fourgraficas import generar_fourgraficas
 from metodos.lm_method import LMMethod
 
 from metodos.multiples_graficas import comparar_sets_de_datos
+from pathlib import Path
 
 # Configuración por defecto
 PARAMETRO_A = 0  # 0: real/imag, 1: mod/fase
@@ -27,12 +28,19 @@ def cargar_datos_excel(ruta_custom=None):
         ruta_defecto = 'datos_prueba/nivel0_01ma_1.xlsx'
         print("\n--- CARGA DE ARCHIVO DE DATOS ---")
         ruta = input(f"Ingrese la ruta del archivo Excel [{ruta_defecto}]: ").strip()
-        if not ruta:
-            ruta = ruta_defecto
 
-    if not os.path.exists(ruta):
-        print(f"[ERROR] El archivo '{ruta}' no existe. Se usará la ruta por defecto.")
+    # 1. Sanitización de ruta (Limpia espacios y comillas típicas de Windows)
+    ruta_saneada = ruta.strip().strip('"').strip("'")
+    if not ruta_saneada:
+        ruta_saneada = ruta_defecto
+
+    # Normalización de ruta compatible con OS (Windows/Linux)
+    path_obj = Path(ruta_saneada)
+
+    if not path_obj.exists():
+        print(f"[ERROR] El archivo '{path_obj}' no existe.")
         return None
+
 
     try:
         df = pd.read_excel(ruta)
