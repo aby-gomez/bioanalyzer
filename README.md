@@ -19,7 +19,7 @@ Incluye un menu interactivo en consola y herramientas de visualizacion grafica (
 9. [Ejecutar tests](#ejecutar-tests)
 10. [Estructura del proyecto](#estructura-del-proyecto)
 11. [Solucion de problemas](#solucion-de-problemas)
-12. [Seccion de Colaboradores](#guia-para-colaboradores)
+12. [Seccion de Colaboradores](#guía-para-colaboradores)
 
 ---
 
