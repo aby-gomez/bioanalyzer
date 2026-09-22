@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 def generar_fourgraficas(datos: np.ndarray, resultados_metodos: dict, c: int):
     """
-    Reconstruye las curvas teóricas de Cole-Cole para cada método y genera
+    Reconstruye las curvas teóricas de Cole para cada método y genera
     las 4 gráficas comparativas con la escala y matemática correctas (semilogx).
     
     Parámetros:

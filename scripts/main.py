@@ -30,7 +30,7 @@ def cargar_datos_excel(ruta_custom=None):
         ruta = input(f"Ingrese la ruta del archivo Excel [{ruta_defecto}]: ").strip()
 
     # 1. Sanitización de ruta (Limpia espacios y comillas típicas de Windows)
-    ruta_saneada = ruta.strip().strip('"').strip("'")
+    ruta_saneada = ruta.strip().strip('"').strip("'").strip('&').strip()
     if not ruta_saneada:
         ruta_saneada = ruta_defecto
 
@@ -46,18 +46,27 @@ def cargar_datos_excel(ruta_custom=None):
     if path_obj.parent.exists():
         print(f"[DEBUG] Archivos en la carpeta: {[f.name for f in path_obj.parent.iterdir()]}")
 
-    # Si no tiene extensión o no existe, intentar agregar .xlsx automáticamente
-    if not path_obj.exists() and path_obj.suffix != '.xlsx':
-        path_obj = path_obj.with_suffix('.xlsx')
+    # Si no existe tal cual fue ingresado, intentar probar con .xlsx o .csv
     if not path_obj.exists():
-        print(f"[ERROR] El archivo '{path_obj}' no existe.")
-        return None
-
+        if path_obj.with_suffix('.xlsx').exists():
+            path_obj = path_obj.with_suffix('.xlsx')
+        elif path_obj.with_suffix('.csv').exists():
+            path_obj = path_obj.with_suffix('.csv')
+        else:
+            print(f"[ERROR] El archivo '{path_obj.name}' no existe.")
+            return None
 
     try:
-        df = pd.read_excel(path_obj)
-        # Adaptación de columnas en caso de nombres en mayúsculas o minúsculas
-        cols = [c.lower() for c in df.columns]
+        ext = path_obj.suffix.lower()
+        if ext in ['.csv', '.txt']:
+            try:
+                df = pd.read_csv(path_obj)
+            except Exception:
+                df = pd.read_csv(path_obj, sep=';')
+        else:
+            df = pd.read_excel(path_obj)
+
+        cols = [str(c).lower().strip() for c in df.columns]
         df.columns = cols
 
         columnas_requeridas = ['frequency', 'real', 'imaginary', 'magnitude', 'phase']
@@ -165,9 +174,9 @@ def main():
 
         elif opcion in ['1', '2', '3', '4']:
             nombre, res_7p, raw = ejecutar_metodo_individual(opcion, datos)
-            imprimir_metricas(nombre, res_7p)
+            imprimir_metricas(nombre, res_7p) 
             
-            graficar_resultados(nombre, datos, raw, parametro_c=PARAMETRO_C)
+            generar_fourgraficas(datos, {nombre:res_7p}, c=PARAMETRO_C)
 
             ver_5 = input("\n¿Desea ver también la comparativa de 5 gráficas con los demás métodos? (s/n): ").strip().lower()
             if ver_5 == 's':
