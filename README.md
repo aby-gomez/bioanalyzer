@@ -15,10 +15,11 @@ Incluye un menu interactivo en consola y herramientas de visualizacion grafica (
 5. [Ejecutar el programa](#ejecutar-el-programa)
 6. [Uso del menu interactivo](#uso-del-menu-interactivo)
 7. [Descripcion de los metodos](#descripcion-de-los-metodos)
-8. [Parametros Cole-Cole](#parametros-cole-cole)
+8. [Parametros Cole](#parametros-cole-cole)
 9. [Ejecutar tests](#ejecutar-tests)
 10. [Estructura del proyecto](#estructura-del-proyecto)
 11. [Solucion de problemas](#solucion-de-problemas)
+12. [Seccion de Colaboradores](#guia-para-colaboradores)
 
 ---
 
