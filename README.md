@@ -601,3 +601,85 @@ Puedes usar el archivo de prueba como referencia para el formato.
 - **Librerias utilizadas:** numpy, pandas, openpyxl, scipy, matplotlib
 - **Python requerido:** 3.10 o superior (recomendado 3.12)
 - **Licencia:** Ver archivo LICENSE si existe
+
+---
+
+## Guía para colaboradores
+
+Si querés contribuir al desarrollo de **Bioanalyzer**, seguí este flujo de trabajo estandarizado para mantener el código organizado y evitar conflictos en la rama principal (`main`).
+
+### 1. Reglas básicas del repositorio
+
+- **La rama `main` está protegida:** No hagas `git push` directo sobre `main`.
+- **Trabajo por ramas:** Cada nueva funcionalidad, corrección de errores (bugfix) o prueba debe realizarse en una rama propia.
+- **Nombres de ramas claros:**
+  - `feature/nombre-funcionalidad` (para agregar cosas nuevas, ej: `feature/metodo-cole-cole`)
+  - `fix/nombre-bug` (para corregir errores, ej: `fix/error-drag-and-drop`)
+  - `docs/nombre-mejora` (para cambios en documentación)
+
+---
+
+### 2. Flujo de trabajo paso a paso
+
+#### Paso 1: Actualizar la rama `main` local
+Antes de empezar a programar, asegurate de tener la versión más reciente del proyecto:
+
+```bash
+git pull origin main
+```
+
+#### Paso 2: Crear tu rama de trabajo
+Crea y cambiáte a tu nueva rama descriptiva:
+
+```bash
+git checkout -b feature/mi-nueva-funcionalidad
+```
+#### Paso 3: Trabajar y hacer commits periódicos
+Escribí tu código y guardá cambios con mensajes claros que expliquen qué hiciste:
+
+```bash
+# Ver qué archivos modificaste
+git status
+
+# Agregar los archivos cambiados al área de preparación
+git add .
+
+# Guardar los cambios con un mensaje claro
+git commit -m "feat: agrega soporte para lectura de archivos .csv"
+
+```
+Tip para mensajes de commit: Usá prefijos descriptivos como feat:, fix:, docs:, refactor:.
+
+#### Paso 4: Subir tu rama a GitHub
+La primera vez que subas tu rama al repositorio remoto, ejecutá:
+
+```bash
+git push -u origin feature/mi-nueva-funcionalidad
+```
+Para los siguientes push dentro de esa misma rama, solo bastará con ejecutar:
+
+```bash
+git push
+```
+
+### 3. Sincronizar tu rama con los cambios de main
+Si tus compañeros integraron cambios a main mientras vos trabajabas en tu rama, actualizá tu rama local para evitar conflictos al final:
+
+
+```bash
+# Estando en tu rama (ej: feature/mi-nueva-funcionalidad)
+git fetch origin
+git merge origin/main
+```
+Si hay conflictos de código, resolvelos en VS Code, guardá los archivos, hacé un git add . y completá el merge con git commit.
+
+### 4.Fusionar tus cambios en el main
+
+```bash
+# Cambiarte a la rama principal
+git checkout main
+# Fusionar tu rama con la principal
+git merge tu-rama
+#  Subir la rama principal actualizada a GitHub
+git push origin main
+```
