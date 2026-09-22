@@ -132,12 +132,12 @@ def ejecutar_comparacion_multiset():
         if datos_set is not None:
             nombre_archivo = os.path.basename(ruta)
             
-            # Ejecutar ajuste Levenberg-Marquardt para este set
-            _, res_7p, _ = ejecutar_metodo_individual('4', datos_set)
+            # Ejecutar ajuste Aylon-Modificado para este set
+            _, res_7p, _ = ejecutar_metodo_individual('3', datos_set)
             
             dict_datasets[nombre_archivo] = {
                 'datos': datos_set,
-                'metodos': {'Levenberg-Marquardt': res_7p}
+                'metodos': {'Ayllon-Modificado': res_7p}
             }
             contador += 1
 
